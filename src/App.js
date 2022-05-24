@@ -9,7 +9,6 @@ function App() {
   const [substring, setSubstring] = useState('');
   const [length, setLength] = useState(0);
   const [result,setResult] = useState([]);
-  const [isLoading, setLoading] = useState(false);
   
   const getInput = (ev) => {
     const word = ev.target.value;
@@ -31,11 +30,9 @@ function App() {
           });
       }
     }
-    setLoading(true);
     setResult([]);
     fetchWords(substring,length);
-    setLoading(false);
-  }, [substring])
+  }, [substring,length])
   
   return (
     <>
