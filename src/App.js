@@ -17,25 +17,25 @@ function App() {
     setLength(word.length);
   }
 
-  const fetchWords = async(word,len) => {
-    if(length === 0) return;
-    const res = await axios.get(`https://japi.rest/bombparty/v1/search?limit=1000&sort=lenlow&q=${word}`);
-    const data = res.data.words;
-    for(let vlen = len ; vlen < 10 ; vlen ++){
-      const dataOfVarLen = data.filter((word) => word.length === vlen);
-      if(dataOfVarLen.length > 0)
-        setResult((prev) => {
-          return [...prev,{length: vlen, data: dataOfVarLen}]
-        });
-    }
-  }
-
+  
   useEffect(() => {
+    const fetchWords = async(word,len) => {
+      if(length === 0) return;
+      const res = await axios.get(`https://japi.rest/bombparty/v1/search?limit=1000&sort=lenlow&q=${word}`);
+      const data = res.data.words;
+      for(let vlen = len ; vlen < 10 ; vlen ++){
+        const dataOfVarLen = data.filter((word) => word.length === vlen);
+        if(dataOfVarLen.length > 0)
+          setResult((prev) => {
+            return [...prev,{length: vlen, data: dataOfVarLen}]
+          });
+      }
+    }
     setLoading(true);
     setResult([]);
     fetchWords(substring,length);
     setLoading(false);
-  }, [substring,length])
+  }, [substring])
   
   return (
     <>
